@@ -11,6 +11,9 @@ import ProtectedRoute from '@/components/ProtectedRoute';
 
 
 const queryClient = new QueryClient();
+const API_URL = import.meta.env.VITE_API_URL;
+
+fetch(`${API_URL}/your-route`)
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
