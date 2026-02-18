@@ -21,9 +21,7 @@ app = Flask(__name__)
 CORS(
     app,
     supports_credentials=True,
-    origins=[
-        "https://faculty-appraisal-c0gohzpjz-joshpinkayalvizhis-projects.vercel.app"
-    ]
+    resources={r"/*": {"origins": "*"}}
 )
 
 app.secret_key = os.environ.get("SECRET_KEY")
