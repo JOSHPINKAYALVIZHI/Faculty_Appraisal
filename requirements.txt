@@ -5,5 +5,4 @@ python-docx
 openpyxl
 reportlab
 docx2pdf
-pywin32
 gunicorn
