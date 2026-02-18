@@ -104,16 +104,29 @@
     "timestamp": "2026-02-17T08:22:35.392508"
   },
   {
-    "name": "Ananthi",
+    "name": "M. SARAVANAPRIYA",
     "designation": "Assistant Professor",
     "dept": "MBA",
     "empid": "903536",
-    "research": 8,
-    "selfm": 6,
+    "research": 0,
+    "selfm": 0,
     "mentor": 0,
     "academics": 5,
     "hod": 0,
-    "total_score": 19,
-    "timestamp": "2026-02-17T09:23:58.759964"
+    "total_score": 5,
+    "timestamp": "2026-02-18T17:54:08.753631"
+  },
+  {
+    "name": "Keren Lois Daniel",
+    "designation": "Associate Professor",
+    "dept": "b.cse",
+    "empid": "903536",
+    "research": 16,
+    "selfm": 9,
+    "mentor": 0,
+    "academics": 5,
+    "hod": 0,
+    "total_score": 30,
+    "timestamp": "2026-02-18T17:57:28.353133"
   }
 ]
