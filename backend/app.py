@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, send_file, send_from_directory
+from flask import Flask, request, jsonify, send_file
 from flask_cors import CORS
 import os
 import json
@@ -14,7 +14,7 @@ from io import BytesIO
 from datetime import datetime
 import platform
 
-app = Flask(__name__, static_folder="./", static_url_path="/")
+app = Flask(__name__)
 # Allow both local development and Docker container access
 CORS(app, origins=['http://localhost:8080', 'http://127.0.0.1:8080', 'http://frontend:8080'], supports_credentials=True)
 app.secret_key = "your_secret_key"
@@ -27,8 +27,22 @@ research = selfm = mentor = academics = hod = 0
 
 @app.route("/")
 def home():
-    # Serve React index.html for root
-    return send_from_directory(app.static_folder, "index.html")
+    # Backend API - return a simple status message
+    return jsonify({"status": "Backend API running", "message": "Access frontend at http://localhost:8080"})
+
+@app.route("/api/")
+def api_status():
+    # API status endpoint
+    return jsonify({
+        "status": "API Running",
+        "endpoints": {
+            "POST /api/login": "User login",
+            "POST /api/upload": "Upload Excel and Word files for processing",
+            "GET /api/download/<file_type>": "Download generated files (pdf, docx, xlsx)",
+            "DELETE /api/history/<timestamp>": "Delete a record from history",
+            "GET /api/download_path": "Get the path of generated files"
+        }
+    })
 
 @app.route("/login", methods=["POST", "GET"])
 def login():
@@ -50,6 +64,10 @@ def login():
         else:
             return jsonify({"success": False, "error": "Please enter correct username and password."}), 401
     return jsonify({"message": "Login endpoint"})
+
+@app.route("/api/login", methods=["POST", "GET"])
+def api_login():
+    return login()
 
 @app.route("/upload", methods=["POST"])
 def upload():
@@ -129,6 +147,9 @@ def upload():
     print("File processed successfully.")
     return jsonify({"success": True, "message": "File processed successfully."}), 200
 
+@app.route("/api/upload", methods=["POST"])
+def api_upload():
+    return upload()
 
 @app.route("/download/<file_type>", methods=["GET"])
 def download(file_type):
@@ -203,6 +224,10 @@ def download(file_type):
         return send_file(file_path, as_attachment=True)
     return jsonify({"error": "Invalid file type"}), 400
 
+@app.route("/api/download/<file_type>", methods=["GET"])
+def api_download(file_type):
+    return download(file_type)
+
 
 HISTORY_FILE = "appraisal_history.json"
 history_lock = threading.Lock()
@@ -225,6 +250,10 @@ def download_path():
     history = load_history()
     return jsonify(history)
 
+@app.route("/api/download_path")
+def api_download_path():
+    return download_path()
+
 @app.route("/history/<timestamp>", methods=["DELETE"])
 def delete_history_record(timestamp):
     with history_lock:
@@ -234,12 +263,9 @@ def delete_history_record(timestamp):
         save_history(updated_history)
     return jsonify({"success": True, "message": "Record deleted successfully"}), 200
 
-@app.route('/<path:path>')
-def serve_react_app(path):
-    file_path = os.path.join(app.static_folder, path)
-    if os.path.exists(file_path):
-        return send_from_directory(app.static_folder, path)
-    return send_from_directory(app.static_folder, 'index.html')
+@app.route("/api/history/<timestamp>", methods=["DELETE"])
+def api_delete_history_record(timestamp):
+    return delete_history_record(timestamp)
 
 def find_header_row(excel_path, sheet_name):
     """Attempt to find the header row index where 'Faculty Name' or similar exists.

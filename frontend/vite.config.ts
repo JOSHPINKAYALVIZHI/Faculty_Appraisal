@@ -8,12 +8,17 @@ export default defineConfig(({ mode }) => ({
   server: {
     host: '0.0.0.0',
     port: 8080,
+    middlewareMode: false,
+    hmr: {
+      host: 'localhost',
+      port: 8080,
+      protocol: 'ws',
+    },
     proxy: {
       '/api': {
         target: process.env.VITE_API_URL || 'http://127.0.0.1:5000',
         changeOrigin: true,
         secure: false,
-        rewrite: (path) => path.replace(/^\/api/, ''),
       },
     },
   },

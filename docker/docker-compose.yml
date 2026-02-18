@@ -1,10 +1,8 @@
-version: '3.9'
-
 services:
   backend:
     build:
-      context: .
-      dockerfile: Backend.Dockerfile
+      context: ../backend
+      dockerfile: ../docker/Backend.Dockerfile
     ports:
       - '5000:5000'
     environment:
@@ -16,7 +14,7 @@ services:
 
   frontend:
     build:
-      context: .
+      context: ../frontend
       dockerfile: Frontend.Dockerfile
       args:
         VITE_API_URL: "http://backend:5000"
