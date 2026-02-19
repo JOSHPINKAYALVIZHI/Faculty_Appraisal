@@ -96,7 +96,6 @@ const UploadForm = ({ onComplete, onCancel }: UploadFormProps) => {
       const res = await fetch(`${API_URL}/api/upload`, {
         method: 'POST',
         body: data,
-        credentials: 'include',
       });
       if (res.redirected || res.ok) {
         // Try to read server response (may include timestamp or record id)

@@ -74,7 +74,6 @@ const Dashboard = () => {
     try {
       const res = await fetch(`${API_URL}/api/download_path`, {
         method: 'GET',
-        credentials: 'include',
       });
       if (!res.ok) {
         setAppraisalHistory([]);
@@ -156,7 +155,7 @@ const Dashboard = () => {
         return;
       }
       try {
-        const res = await fetch(`${API_URL}/api/download_path`, { method: 'GET', credentials: 'include' });
+        const res = await fetch(`${API_URL}/api/download_path`, { method: 'GET' });
         if (res.ok) {
           const list = await res.json();
           const matched = list.find((it: Record<string, unknown>) => it.timestamp === ts);
@@ -269,7 +268,6 @@ const Dashboard = () => {
                 onClick={async () => {
                   const res = await fetch(`${API_URL}/api/download/pdf`, {
                     method: 'GET',
-                    credentials: 'include',
                   });
                   if (res.ok) {
                     const blob = await res.blob();
@@ -291,7 +289,6 @@ const Dashboard = () => {
                 onClick={async () => {
                   const res = await fetch(`${API_URL}/api/download/docx`, {
                     method: 'GET',
-                    credentials: 'include',
                   });
                   if (res.ok) {
                     const blob = await res.blob();
@@ -313,7 +310,6 @@ const Dashboard = () => {
                 onClick={async () => {
                   const res = await fetch(`${API_URL}/api/download/corrective`, {
                     method: 'GET',
-                    credentials: 'include',
                   });
                   if (res.ok) {
                     const blob = await res.blob();
@@ -420,7 +416,6 @@ const Dashboard = () => {
                           onClick={async () => {
                             const res = await fetch(`${API_URL}/api/download/pdf`, {
                               method: 'GET',
-                              credentials: 'include',
                             });
                             if (res.ok) {
                               const blob = await res.blob();
@@ -443,7 +438,6 @@ const Dashboard = () => {
                           onClick={async () => {
                             const res = await fetch(`${API_URL}/api/download/docx`, {
                               method: 'GET',
-                              credentials: 'include',
                             });
                             if (res.ok) {
                               const blob = await res.blob();
@@ -466,7 +460,6 @@ const Dashboard = () => {
                           onClick={async () => {
                             const res = await fetch(`${API_URL}/api/download/corrective`, {
                               method: 'GET',
-                              credentials: 'include',
                             });
                             if (res.ok) {
                               const blob = await res.blob();
@@ -490,7 +483,6 @@ const Dashboard = () => {
                             if (record.timestamp) {
                               const res = await fetch(`${API_URL}/api/history/${record.timestamp}`, {
                                 method: 'DELETE',
-                                credentials: 'include',
                               });
                               if (res.ok) {
                                 await fetchData();
