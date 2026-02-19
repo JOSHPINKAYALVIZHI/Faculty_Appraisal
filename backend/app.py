@@ -137,8 +137,8 @@ def upload():
         appraisal = {
             "name": staffname,
             "designation": detaillist[1] if len(detaillist) > 1 else "",
-            "dept": detaillist[2] if len(detaillist) > 2 else "",
-            "empid": detaillist[3] if len(detaillist) > 3 else "",
+            "department": detaillist[2] if len(detaillist) > 2 else "",
+            "emp_id": detaillist[3] if len(detaillist) > 3 else "",
             "research": research,
             "selfm": selfm,
             "mentor": mentor,
