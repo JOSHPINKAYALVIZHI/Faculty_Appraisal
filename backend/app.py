@@ -19,15 +19,8 @@ app = Flask(__name__)
 # Allow both local development and Docker container access
 # CORS(app, origins=['http://localhost:8080', 'http://127.0.0.1:8080', 'http://frontend:8080'], supports_credentials=True)
 
-CORS(
-    app,
-    supports_credentials=True,
-    origins=[
-        "https://faculty-appraisal-joshpinkayalvizhis-projects.vercel.app/"
-    ],
-    allow_headers=["Content-Type"],
-    methods=["GET", "POST", "OPTIONS"]
-)
+CORS(app, supports_credentials=True, origins="*")
+
 
 
 app.secret_key = os.environ.get("SECRET_KEY")
