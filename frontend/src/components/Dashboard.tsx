@@ -50,6 +50,7 @@ interface DisplayScores {
 }
 
 const Dashboard = () => {
+  const API_URL = import.meta.env.VITE_API_URL;
   const navigate = useNavigate();
   const location = useLocation();
   const handleLogout = () => {
@@ -71,7 +72,7 @@ const Dashboard = () => {
   const fetchData = async (): Promise<FacultyRecord[]> => {
     setLoading(true);
     try {
-      const res = await fetch('/api/download_path', {
+      const res = await fetch(`${API_URL}/api/download_path`, {
         method: 'GET',
         credentials: 'include',
       });
@@ -155,7 +156,7 @@ const Dashboard = () => {
         return;
       }
       try {
-        const res = await fetch('/api/download_path', { method: 'GET', credentials: 'include' });
+        const res = await fetch(`${API_URL}/api/download_path`, { method: 'GET', credentials: 'include' });
         if (res.ok) {
           const list = await res.json();
           const matched = list.find((it: Record<string, unknown>) => it.timestamp === ts);
@@ -266,7 +267,7 @@ const Dashboard = () => {
               <Button
                 variant="outline"
                 onClick={async () => {
-                  const res = await fetch('/api/download/pdf', {
+                  const res = await fetch(`${API_URL}/api/download/pdf`, {
                     method: 'GET',
                     credentials: 'include',
                   });
@@ -288,7 +289,7 @@ const Dashboard = () => {
               <Button
                 variant="outline"
                 onClick={async () => {
-                  const res = await fetch('/api/download/docx', {
+                  const res = await fetch(`${API_URL}/api/download/docx`, {
                     method: 'GET',
                     credentials: 'include',
                   });
@@ -310,7 +311,7 @@ const Dashboard = () => {
               <Button
                 variant="outline"
                 onClick={async () => {
-                  const res = await fetch('/api/download/corrective', {
+                  const res = await fetch(`${API_URL}/api/download/corrective`, {
                     method: 'GET',
                     credentials: 'include',
                   });
@@ -417,7 +418,7 @@ const Dashboard = () => {
                           variant="outline"
                           size="sm"
                           onClick={async () => {
-                            const res = await fetch('/api/download/pdf', {
+                            const res = await fetch(`${API_URL}/api/download/pdf`, {
                               method: 'GET',
                               credentials: 'include',
                             });
@@ -440,7 +441,7 @@ const Dashboard = () => {
                           variant="outline"
                           size="sm"
                           onClick={async () => {
-                            const res = await fetch('/api/download/docx', {
+                            const res = await fetch(`${API_URL}/api/download/docx`, {
                               method: 'GET',
                               credentials: 'include',
                             });
@@ -463,7 +464,7 @@ const Dashboard = () => {
                           variant="outline"
                           size="sm"
                           onClick={async () => {
-                            const res = await fetch('/api/download/corrective', {
+                            const res = await fetch(`${API_URL}/api/download/corrective`, {
                               method: 'GET',
                               credentials: 'include',
                             });
@@ -487,7 +488,7 @@ const Dashboard = () => {
                           size="sm"
                           onClick={async () => {
                             if (record.timestamp) {
-                              const res = await fetch(`/api/history/${record.timestamp}`, {
+                              const res = await fetch(`${API_URL}/api/history/${record.timestamp}`, {
                                 method: 'DELETE',
                                 credentials: 'include',
                               });

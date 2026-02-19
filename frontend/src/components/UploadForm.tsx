@@ -19,6 +19,7 @@ import {
 } from '@/components/ui/select';
 
 const UploadForm = ({ onComplete, onCancel }: UploadFormProps) => {
+  const API_URL = import.meta.env.VITE_API_URL;
   const [formData, setFormData] = useState({
     facultyName: '',
     employeeId: '',
@@ -92,7 +93,7 @@ const UploadForm = ({ onComplete, onCancel }: UploadFormProps) => {
       data.append('excel_file', selectedExcelFile);
       data.append('word_file', selectedWordFile);
 
-      const res = await fetch('/api/upload', {
+      const res = await fetch(`${API_URL}/api/upload`, {
         method: 'POST',
         body: data,
         credentials: 'include',
