@@ -14,10 +14,16 @@ from io import BytesIO
 from datetime import datetime
 import platform
 
+
 app = Flask(__name__)
 # Allow both local development and Docker container access
-CORS(app, origins=['http://localhost:8080', 'http://127.0.0.1:8080', 'http://frontend:8080'], supports_credentials=True)
-app.secret_key = "your_secret_key"
+# CORS(app, origins=['http://localhost:8080', 'http://127.0.0.1:8080', 'http://frontend:8080'], supports_credentials=True)
+
+CORS(app)
+
+
+
+app.secret_key = os.environ.get("SECRET_KEY")
 
 # Globals
 staffname = ""
@@ -131,8 +137,8 @@ def upload():
         appraisal = {
             "name": staffname,
             "designation": detaillist[1] if len(detaillist) > 1 else "",
-            "dept": detaillist[2] if len(detaillist) > 2 else "",
-            "empid": detaillist[3] if len(detaillist) > 3 else "",
+            "department": detaillist[2] if len(detaillist) > 2 else "",
+            "emp_id": detaillist[3] if len(detaillist) > 3 else "",
             "research": research,
             "selfm": selfm,
             "mentor": mentor,
@@ -1440,4 +1446,5 @@ def process_blueprint(excel_path, staffname):
 if __name__ == '__main__':
     # with app.app_context():
     #     db.create_all()
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    #app.run(host='0.0.0.0', port=5000, debug=True)
+    pass
